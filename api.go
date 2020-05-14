@@ -7,7 +7,7 @@ import (
 )
 
 type ExampleV1Alpha1Interface interface {
-    Projects(namespace string) ProjectInterface
+    Migration(namespace string) ProjectInterface
 }
 
 type ExampleV1Alpha1Client struct {
