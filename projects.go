@@ -1,7 +1,6 @@
 package v1alpha1
 
 import (
-	"fmt"
 	"github.com/hth0919/migrationcontroller/pkg/apis/keti/v1alpha1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/watch"
@@ -24,13 +23,6 @@ type migrationClient struct {
 
 func (c *migrationClient) List(opts metav1.ListOptions) (*v1alpha1.MigrationList, error) {
 	result := v1alpha1.MigrationList{}
-	request := c.restClient.
-		Get().
-		Namespace(c.ns).
-		Resource("migrations").
-		VersionedParams(&opts, scheme.ParameterCodec).Do()
-	r,_ := request.Raw()
-	fmt.Println(string(r), "LIST")
 	err := c.restClient.
 		Get().
 		Namespace(c.ns).
@@ -44,14 +36,6 @@ func (c *migrationClient) List(opts metav1.ListOptions) (*v1alpha1.MigrationList
 
 func (c *migrationClient) Get(name string, opts metav1.GetOptions) (*v1alpha1.Migration, error) {
 	result := v1alpha1.Migration{}
-	request := c.restClient.
-		Get().
-		Namespace(c.ns).
-		Resource("migrations").
-		Name(name).
-		VersionedParams(&opts, scheme.ParameterCodec).Do()
-	r,_ := request.Raw()
-	fmt.Println(string(r), "GET")
 	err := c.restClient.
 		Get().
 		Namespace(c.ns).
@@ -66,12 +50,6 @@ func (c *migrationClient) Get(name string, opts metav1.GetOptions) (*v1alpha1.Mi
 
 func (c *migrationClient) Create(migration *v1alpha1.Migration) (*v1alpha1.Migration, error) {
 	result := v1alpha1.Migration{}
-	request := c.restClient.
-		Post().
-		Namespace(c.ns).
-		Resource("migrations").
-		Body(migration)
-	fmt.Println(request.URL(), "create")
 	err := c.restClient.
 		Post().
 		Namespace(c.ns).
@@ -85,12 +63,6 @@ func (c *migrationClient) Create(migration *v1alpha1.Migration) (*v1alpha1.Migra
 
 func (c *migrationClient) Watch(opts metav1.ListOptions) (watch.Interface, error) {
 	opts.Watch = true
-	request := c.restClient.
-		Get().
-		Namespace(c.ns).
-		Resource("migrations").
-		VersionedParams(&opts, scheme.ParameterCodec)
-	fmt.Println(request.URL(), "WATCH")
 	return c.restClient.
 		Get().
 		Namespace(c.ns).
