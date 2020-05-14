@@ -17,7 +17,7 @@ type ExampleV1Alpha1Client struct {
 func NewForConfig(c *rest.Config) (*ExampleV1Alpha1Client, error) {
     config := *c
     config.ContentConfig.GroupVersion = &schema.GroupVersion{Group: "keti.migration", Version: "v1alpha1"}
-    config.APIPath = "/apis/keti.migration/v1alpha1"
+    config.APIPath = "/apis"
     config.NegotiatedSerializer = scheme.Codecs.WithoutConversion()
     config.UserAgent = rest.DefaultKubernetesUserAgent()
 
