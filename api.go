@@ -7,7 +7,7 @@ import (
 )
 
 type ExampleV1Alpha1Interface interface {
-    Migration(namespace string) ProjectInterface
+    Migration(namespace string) MigrationInterface
 }
 
 type ExampleV1Alpha1Client struct {
@@ -29,8 +29,8 @@ func NewForConfig(c *rest.Config) (*ExampleV1Alpha1Client, error) {
     return &ExampleV1Alpha1Client{restClient: client}, nil
 }
 
-func (c *ExampleV1Alpha1Client) Migration(namespace string) ProjectInterface {
-    return &projectClient{
+func (c *ExampleV1Alpha1Client) Migration(namespace string) MigrationInterface {
+    return &migrationClient{
         restClient: c.restClient,
         ns:         namespace,
     }
