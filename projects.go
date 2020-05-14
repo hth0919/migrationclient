@@ -28,8 +28,9 @@ func (c *migrationClient) List(opts metav1.ListOptions) (*v1alpha1.MigrationList
 		Get().
 		Namespace(c.ns).
 		Resource("migrations").
-		VersionedParams(&opts, scheme.ParameterCodec)
-	fmt.Println(request.URL(), "LIST")
+		VersionedParams(&opts, scheme.ParameterCodec).Do()
+	r,_ := request.Raw()
+	fmt.Println(string(r), "LIST")
 	err := c.restClient.
 		Get().
 		Namespace(c.ns).
@@ -48,8 +49,9 @@ func (c *migrationClient) Get(name string, opts metav1.GetOptions) (*v1alpha1.Mi
 		Namespace(c.ns).
 		Resource("migrations").
 		Name(name).
-		VersionedParams(&opts, scheme.ParameterCodec)
-	fmt.Println(request.URL(), "GET")
+		VersionedParams(&opts, scheme.ParameterCodec).Do()
+	r,_ := request.Raw()
+	fmt.Println(string(r), "GET")
 	err := c.restClient.
 		Get().
 		Namespace(c.ns).
