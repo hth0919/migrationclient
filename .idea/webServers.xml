@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="28ada83e-07d0-41fd-812f-acd2aaf4d8ac" name="10.0.2.15" url="http://10.0.6.41">
+        <fileTransfer host="10.0.6.41" port="22" rootFolder="/root/user/hth/go_pkg" accessType="SFTP">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+          <option name="port" value="22" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
