@@ -29,7 +29,7 @@ func NewForConfig(c *rest.Config) (*ExampleV1Alpha1Client, error) {
     return &ExampleV1Alpha1Client{restClient: client}, nil
 }
 
-func (c *ExampleV1Alpha1Client) migration(namespace string) ProjectInterface {
+func (c *ExampleV1Alpha1Client) Migration(namespace string) ProjectInterface {
     return &projectClient{
         restClient: c.restClient,
         ns:         namespace,
