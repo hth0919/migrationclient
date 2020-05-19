@@ -10,6 +10,7 @@ import (
 )
 
 type MigrationInterface interface {
+	RESTClient() rest.Interface
 	List(opts metav1.ListOptions) (*v1alpha1.MigrationList, error)
 	Get(name string, options metav1.GetOptions) (*v1alpha1.Migration, error)
 	Create(migration *v1alpha1.Migration) (*v1alpha1.Migration, error)
@@ -20,6 +21,13 @@ type MigrationInterface interface {
 type migrationClient struct {
 	restClient rest.Interface
 	ns         string
+}
+
+func (c *migrationClient) RESTClient() rest.Interface {
+	if c == nil {
+		return nil
+	}
+	return c.restClient
 }
 
 func (c *migrationClient) List(opts metav1.ListOptions) (*v1alpha1.MigrationList, error) {
