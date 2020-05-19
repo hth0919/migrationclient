@@ -7,6 +7,7 @@ import (
 )
 
 type ExampleV1Alpha1Interface interface {
+    RESTClient() rest.Interface
     Migration(namespace string) MigrationInterface
 }
 
@@ -30,6 +31,13 @@ func NewForConfig(c *rest.Config) (*ExampleV1Alpha1Client, error) {
     return &ExampleV1Alpha1Client{restClient: client}, nil
 }
 
-func (c *ExampleV1Alpha1Client) Migration() MigrationInterface {
-    return c.migration
+func (c *ExampleV1Alpha1Client) Migration(namespace string) MigrationInterface {
+    return newMigrationClien(c,namespace)
+}
+
+func (c *ExampleV1Alpha1Client) RESTClient() rest.Interface {
+    if c == nil {
+        return nil
+    }
+    return c.restClient
 }

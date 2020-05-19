@@ -23,6 +23,13 @@ type migrationClient struct {
 	ns         string
 }
 
+func newMigrationClien(c *ExampleV1Alpha1Client, namespace string) *migrationClient {
+	return &migrationClient{
+		restClient: c.RESTClient(),
+		ns:     namespace,
+	}
+}
+
 func (c *migrationClient) RESTClient() rest.Interface {
 	if c == nil {
 		return nil
