@@ -12,6 +12,7 @@ type ExampleV1Alpha1Interface interface {
 
 type ExampleV1Alpha1Client struct {
     restClient rest.Interface
+    migration  *migrationClient
 }
 
 func NewForConfig(c *rest.Config) (*ExampleV1Alpha1Client, error) {
@@ -29,9 +30,6 @@ func NewForConfig(c *rest.Config) (*ExampleV1Alpha1Client, error) {
     return &ExampleV1Alpha1Client{restClient: client}, nil
 }
 
-func (c *ExampleV1Alpha1Client) Migration(namespace string) MigrationInterface {
-    return &migrationClient{
-        restClient: c.restClient,
-        ns:         namespace,
-    }
+func (c *ExampleV1Alpha1Client) Migration() MigrationInterface {
+    return c.migration
 }
