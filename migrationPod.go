@@ -9,7 +9,7 @@ import (
 	"context"
 )
 
-type MigrationInterface interface {
+type MigrationPodInterface interface {
 	RESTClient() rest.Interface
 	List(opts metav1.ListOptions) (*v1alpha1.MigrationList, error)
 	Get(name string, options metav1.GetOptions) (*v1alpha1.Migration, error)
@@ -18,31 +18,31 @@ type MigrationInterface interface {
 	// ...
 }
 
-type MigrationClient struct {
+type MigrationPodClient struct {
 	restClient rest.Interface
 	ns         string
 }
 
-func newMigrationClient(c *ExampleV1Alpha1Client, namespace string) *MigrationClient {
-	return &MigrationClient{
+func newMigrationPodClient(c *ExampleV1Alpha1Client, namespace string) *MigrationPodClient {
+	return &MigrationPodClient{
 		restClient: c.RESTClient(),
 		ns:     namespace,
 	}
 }
 
-func (c *MigrationClient) RESTClient() rest.Interface {
+func (c *MigrationPodClient) RESTClient() rest.Interface {
 	if c == nil {
 		return nil
 	}
 	return c.restClient
 }
 
-func (c *MigrationClient) List(opts metav1.ListOptions) (*v1alpha1.MigrationList, error) {
+func (c *MigrationPodClient) List(opts metav1.ListOptions) (*v1alpha1.MigrationList, error) {
 	result := v1alpha1.MigrationList{}
 	err := c.restClient.
 		Get().
 		Namespace(c.ns).
-		Resource("rules").
+		Resource("pods").
 		VersionedParams(&opts, scheme.ParameterCodec).
 		Do(context.TODO()).
 		Into(&result)
@@ -50,12 +50,12 @@ func (c *MigrationClient) List(opts metav1.ListOptions) (*v1alpha1.MigrationList
 	return &result, err
 }
 
-func (c *MigrationClient) Get(name string, opts metav1.GetOptions) (*v1alpha1.Migration, error) {
+func (c *MigrationPodClient) Get(name string, opts metav1.GetOptions) (*v1alpha1.Migration, error) {
 	result := v1alpha1.Migration{}
 	err := c.restClient.
 		Get().
 		Namespace(c.ns).
-		Resource("rules").
+		Resource("pods").
 		Name(name).
 		VersionedParams(&opts, scheme.ParameterCodec).
 		Do(context.TODO()).
@@ -64,12 +64,12 @@ func (c *MigrationClient) Get(name string, opts metav1.GetOptions) (*v1alpha1.Mi
 	return &result, err
 }
 
-func (c *MigrationClient) Create(migration *v1alpha1.Migration) (*v1alpha1.Migration, error) {
+func (c *MigrationPodClient) Create(migration *v1alpha1.Migration) (*v1alpha1.Migration, error) {
 	result := v1alpha1.Migration{}
 	err := c.restClient.
 		Post().
 		Namespace(c.ns).
-		Resource("rules").
+		Resource("pods").
 		Body(migration).
 		Do(context.TODO()).
 		Into(&result)
@@ -77,12 +77,12 @@ func (c *MigrationClient) Create(migration *v1alpha1.Migration) (*v1alpha1.Migra
 	return &result, err
 }
 
-func (c *MigrationClient) Watch(opts metav1.ListOptions) (watch.Interface, error) {
+func (c *MigrationPodClient) Watch(opts metav1.ListOptions) (watch.Interface, error) {
 	opts.Watch = true
 	return c.restClient.
 		Get().
 		Namespace(c.ns).
-		Resource("rules").
+		Resource("pods").
 		VersionedParams(&opts, scheme.ParameterCodec).
 		Watch(context.Background())
 }
