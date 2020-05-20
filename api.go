@@ -44,6 +44,6 @@ func (c *ExampleV1Alpha1Client) Migration(namespace string) MigrationInterface {
     return newMigrationClient(c,namespace)
 }
 
-func (c *ExampleV1Alpha1Client) MigrationPod(namespace string) MigrationInterface {
+func (c *ExampleV1Alpha1Client) MigrationPod(namespace string) MigrationPodInterface {
     return newMigrationPodClient(c,namespace)
 }
