@@ -65,7 +65,7 @@ func (c *MigrationPodClient) Get(name string, opts metav1.GetOptions) (*migv1.Po
 }
 
 func (c *MigrationPodClient) Create(migration *migv1.Pod) (*migv1.Pod, error) {
-	result := migv1.PodList{}
+	result := migv1.Pod{}
 	err := c.restClient.
 		Post().
 		Namespace(c.ns).
