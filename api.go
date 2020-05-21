@@ -8,14 +8,12 @@ import (
 
 type ExampleV1Alpha1Interface interface {
     RESTClient() rest.Interface
-    Migration(namespace string) MigrationInterface
     MigrationPod(namespace string) MigrationPodInterface
 }
 
 type ExampleV1Alpha1Client struct {
     restClient rest.Interface
-    migration  *MigrationClient
-    pod        MigrationPodClient
+    pod        *MigrationPodClient
 }
 
 func NewForConfig(c *rest.Config) (*ExampleV1Alpha1Client, error) {
@@ -38,10 +36,6 @@ func (c *ExampleV1Alpha1Client) RESTClient() rest.Interface {
         return nil
     }
     return c.restClient
-}
-
-func (c *ExampleV1Alpha1Client) Migration(namespace string) MigrationInterface {
-    return newMigrationClient(c,namespace)
 }
 
 func (c *ExampleV1Alpha1Client) MigrationPod(namespace string) MigrationPodInterface {
